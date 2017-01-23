@@ -193,7 +193,8 @@ public class Socket extends Emitter {
                     logger.fine(String.format("emitting packet with ack id %d", Socket.this.ids));
                     Socket.this.acks.put(Socket.this.ids, (Ack)_args.remove(_args.size() - 1));
                     jsonArgs = remove(jsonArgs, jsonArgs.length() - 1);
-                    packet.data = jsonArgs;
+                    String payload = jsonArgs.toString().replace("\\/");
+                    packet.data = payload;
                     packet.id = Socket.this.ids++;
                 }
 
@@ -241,7 +242,7 @@ public class Socket extends Emitter {
                         addAll(Arrays.asList(args));
                     }
                 }};
-                
+
                 JSONArray jsonArgs = new JSONArray();
                 for (Object _arg : _args) {
                     jsonArgs.put(_arg);
